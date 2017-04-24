@@ -1,10 +1,17 @@
 console.log('server');
 
-// dependencies --> after downloading express, indicating that this will use express
+// dependency --> after downloading express, indicates that this
+// will use express
 var express = require('express');
+
+// dependency --> used in res.sendFile(path.join(.....))
 var path = require('path');
-var app = express();  // call & execute express --> the thing we interact with
-// that allows us to call methods
+
+// call & execute express --> the thing we interact with
+// that allows us to call methods --> app.use, app.get, app.post
+var app = express();
+
+// dependency
 var bodyParser = require('body-parser');
 
 // data
@@ -29,22 +36,37 @@ app.get('/', function(req, res) {
 
 app.post('/calculator', function(req, res) {
   console.log("this is our input request",req.body.Type);
+  // variable that changes depending on calculation type
   var calculatedResponse;
+  // conditional statements to distinguish amongst calculation types
+  // the parseInt() function parses a string and returns an integer
   if (req.body.Type == "add"){
      calculatedResponse = parseInt(req.body.Input1) + parseInt(req.body.Input2);
   }
-  res.send(calculatedResponse.toString()); // final thing that happens within function
-// else if, etc.
-});
+  else if
+     (req.body.Type == "subtract"){
+     calculatedResponse = parseInt(req.body.Input1) - parseInt(req.body.Input2);
+  }
+  else if
+     (req.body.Type == "multiply"){
+     calculatedResponse = parseInt(req.body.Input1) * parseInt(req.body.Input2);
+  }
+  else if
+     (req.body.Type == "divide"){
+     calculatedResponse = parseInt(req.body.Input1) / parseInt(req.body.Input2);
+  }
+  // "clear" does not seem to be working properly
+  else if
+     (req.body.Type == "clear"){
+     calculatedResponse = ();
+   }
+    // final thing that happens within function
+    res.send(calculatedResponse.toString());
+  });
 
 
-
-
-
-
-
-// all servers listen:
-app.listen(3001, function() {  // port followed by anonymous function
+// all servers listen --> port followed by anonymous function
+app.listen(3001, function() {
   console.log('listening on port 3001');
 });  // server is listening and waiting
 
